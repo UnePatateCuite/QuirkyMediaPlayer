@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 @dataclass
 class MediaInfo:
+    player: str
     title: str
     artist: str
     art_url: str
@@ -56,6 +57,7 @@ def get_current_media() -> tuple[str, MediaInfo]:
 
         duration_microseconds = int(fields.get("mpris:length", "0"))
         media = MediaInfo(
+            player=player,
             title=fields.get("xesam:title", ""),
             artist=fields.get("xesam:artist", ""),
             art_url=fields.get("mpris:artUrl", ""),
@@ -77,6 +79,19 @@ def get_current_media() -> tuple[str, MediaInfo]:
             if status == "Playing"
         ),
         (available_media[0][1], available_media[0][2]),
+    )
+
+
+def control_player(player: str, command: str) -> None:
+    if command not in {"play", "pause"}:
+        raise ValueError(f"Unsupported playback command: {command}")
+
+    subprocess.run(
+        ["playerctl", f"--player={player}", command],
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=2,
     )
 
 
