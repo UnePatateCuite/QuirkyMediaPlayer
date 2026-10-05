@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Quirky Media Player
+Comment=Show the currently playing MPRIS media
+Exec=/home/leasan/Projects/GitHub/QuirkyMediaPlayer/run_app.sh
+Path=/home/leasan/Projects/GitHub/QuirkyMediaPlayer
+Terminal=false
+Type=Application
+Categories=AudioVideo;Audio;Player;
+StartupNotify=true
