@@ -95,6 +95,16 @@ def control_player(player: str, command: str) -> None:
     )
 
 
+def seek_player(player: str, position_seconds: int) -> None:
+    subprocess.run(
+        ["playerctl", f"--player={player}", "position", str(position_seconds)],
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=2,
+    )
+
+
 def format_time(seconds: float) -> str:
     total_seconds = max(0, int(seconds))
     hours, remainder = divmod(total_seconds, 3600)
